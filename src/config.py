@@ -13,16 +13,36 @@ BLACK = (0, 0, 0)
 PURPLE = (128, 0, 128)
 
 # Audio Files
-MENU_SOUND = "assets/sounds/menu.wav"
-GAME_OVER_SOUND = "assets/sounds/game_over.wav"
-ATTACK_SOUND = "assets/sounds/attack.wav"
-FOOD_SOUND = "assets/sounds/food.wav"
+MENU_SOUND = "sounds/menu.wav"
+GAME_OVER_SOUND = "sounds/game_over.wav"
+ATTACK_SOUND = "sounds/attack.wav"
+FOOD_SOUND = "sounds/food.wav"
 
 # Sprites
-PLAYER_SPRITE = "assets/sprites/player.png"
-ENEMY_SPRITE = "assets/sprites/enemy.png"
-FOOD_SPRITE = "assets/sprites/food.png"
-OBSTACLE_SPRITE = "assets/sprites/obstacle.png"
+PLAYER_SPRITE = "sprites/snake_sprite_sheet.png"
+ENEMY_SPRITE = "sprites/enemy.png"
+FOOD_SPRITE = "sprites/food.png"
+OBSTACLE_SPRITE = "sprites/obstacle.png"
+GRASS_TILE = "sprites/grass_tile.png"
+DIRT_TILE = "sprites/dirt_tile.png"
+WATER_TILE = "sprites/water_tile.png"
+STONE_TILE = "sprites/stone_tile.png"
+SAND_TILE = "sprites/sand_tile.png"
+LAVA_TILE = "sprites/lava_tile.png"
+SNOW_TILE = "sprites/snow_tile.png"
+BRICK_TILE = "sprites/brick_tile.png"
+
+# Tileset
+TILESET = {
+    0: GRASS_TILE,
+    1: DIRT_TILE,
+    2: WATER_TILE,
+    3: STONE_TILE,
+    4: SAND_TILE,
+    5: LAVA_TILE,
+    6: SNOW_TILE,
+    7: BRICK_TILE
+}
 
 # Default Settings
 DEFAULT_WINDOW_SIZE = (800, 600)
