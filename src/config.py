@@ -1,6 +1,6 @@
-## File: config.py
+# Game Settings
 WIDTH, HEIGHT = 800, 600
-CELL_SIZE = 20
+CELL_SIZE = 64
 FPS = 15
 
 # Colors
@@ -12,25 +12,28 @@ YELLOW = (255, 255, 0)
 BLACK = (0, 0, 0)
 PURPLE = (128, 0, 128)
 
+FONTS = {
+    "title": "assets/fonts/TrajanPro-Regular.ttf",
+    "subtitle": "assets/fonts/DecoratedRomanInitials.ttf",
+    "score": "assets/fonts/macedonia.3d-filled-regular.ttf",
+}
+
 # Audio Files
-MENU_SOUND = "sounds/menu.wav"
-GAME_OVER_SOUND = "sounds/game_over.wav"
-ATTACK_SOUND = "sounds/attack.wav"
-FOOD_SOUND = "sounds/food.wav"
+MENU_SOUND = "../assets/sounds/menu.wav"
+GAME_OVER_SOUND = "../assets/sounds/game_over.wav"
+ATTACK_SOUND = "../assets/sounds/attack.wav"
+FOOD_SOUND = "../assets/sounds/food.ogg"
+POWERUP_SOUND = "../assets/sounds/powerup.wav"
 
 # Sprites
-PLAYER_SPRITE = "sprites/snake_sprite_sheet.png"
-ENEMY_SPRITE = "sprites/enemy.png"
-FOOD_SPRITE = "sprites/food.png"
-OBSTACLE_SPRITE = "sprites/obstacle.png"
-GRASS_TILE = "sprites/grass_tile.png"
-DIRT_TILE = "sprites/dirt_tile.png"
-WATER_TILE = "sprites/water_tile.png"
-STONE_TILE = "sprites/stone_tile.png"
-SAND_TILE = "sprites/sand_tile.png"
-LAVA_TILE = "sprites/lava_tile.png"
-SNOW_TILE = "sprites/snow_tile.png"
-BRICK_TILE = "sprites/brick_tile.png"
+GRASS_TILE = "assets/sprites/grass_tile.png"
+DIRT_TILE = "assets/sprites/dirt_tile.png"
+WATER_TILE = "assets/sprites/water_tile.png"
+STONE_TILE = "assets/sprites/stone_tile.png"
+SAND_TILE = "assets/sprites/sand_tile.png"
+LAVA_TILE = "assets/sprites/lava_tile.png"
+SNOW_TILE = "assets/sprites/snow_tile.png"
+BRICK_TILE = "assets/sprites/brick_tile.png"
 
 # Tileset
 TILESET = {
@@ -44,9 +47,13 @@ TILESET = {
     7: BRICK_TILE
 }
 
-# Default Settings
-DEFAULT_WINDOW_SIZE = (800, 600)
-DEFAULT_FPS = 15
-DEFAULT_SNAKE_SPEED = 1
-DEFAULT_SNAKE_COLOR = GREEN
-DEFAULT_ENEMY_COLOR = RED
+# Snake Skins
+SNAKE_SKINS = {
+    "Green Snake": "assets/sprites/snakes/snake_green.png",
+    "Dark Blue Snake": "assets/sprites/snakes/snake_darkblue.png",
+    "Darkest Blue Snake": "assets/sprites/snakes/snake_darkestblue.png",
+    "Tannish Gold Snake": "assets/sprites/snakes/snake_tangold.png",
+    "Orange Snake": "assets/sprites/snakes/snake_orange.png",
+    "Red Snake": "assets/sprites/snakes/snake_red.png",
+    "Really Black Snake": "assets/sprites/snakes/snake_reallyblack.png"
+}

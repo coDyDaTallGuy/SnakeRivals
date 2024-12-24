@@ -1,0 +1,29 @@
+# Byte-compiled / Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+env/
+venv/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Large binaries (adjust as needed)
+assets/sounds/*.wav
+assets/sprites/*.png
+
+# Exclude other temporary or unnecessary files
+*.tmp
+*.bak
+*.swp
+*.swo
