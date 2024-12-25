@@ -1,7 +1,7 @@
 import pygame
 import random
 import os
-from config import CELL_SIZE
+from config import CELL_SIZE, SPRITES_DIR, POWERUP_SPRITES
 from utils import load_animation_frames
 
 
@@ -27,12 +27,8 @@ class TeleportationEffect:
     """Handles the teleportation animation and logic."""
 
     def __init__(self, dematerialize_sprites, materialize_sprites, cell_size):
-        base_path = os.path.dirname(__file__)
-        dematerialize_path = os.path.join(base_path, "../", dematerialize_sprites)
-        materialize_path = os.path.join(base_path, "../", materialize_sprites)
-
-        self.dematerialize_frames = load_animation_frames(dematerialize_path, cell_size, cell_size)
-        self.materialize_frames = load_animation_frames(materialize_path, cell_size, cell_size)
+        self.dematerialize_frames = load_animation_frames(dematerialize_sprites, cell_size, cell_size)
+        self.materialize_frames = load_animation_frames(materialize_sprites, cell_size, cell_size)
         self.frame_index = 0
         self.animating = False
         self.teleport_done = False
@@ -72,15 +68,7 @@ class PowerUpManager:
             "growth": self.growth_boost,
             "teleportation": self.teleportation
         }
-        self.images = {
-            "speed": "assets/sprites/power_speed.png",
-            "shield": "assets/sprites/power_shield.png",
-            "power": "assets/sprites/power_power.png",
-            "midas": "assets/sprites/power_midas.png",
-            "freeze": "assets/sprites/power_freeze.png",
-            "growth": "assets/sprites/power_growth.png",
-            "teleportation": "assets/sprites/teleporter_01.png"
-        }
+        self.images = POWERUP_SPRITES
 
         for _ in range(spawn_count):
             x, y = random.randint(0, 39), random.randint(0, 29)
@@ -98,8 +86,8 @@ class PowerUpManager:
             if (px * CELL_SIZE, py * CELL_SIZE) == snake_head:
                 powerup.activate(snake_head, enemies)
                 self.powerups.remove(powerup)
-                return True
-        return False
+                return powerup.effect.__name__  # Return the effect name
+        return None
 
     # Power-up Effects
     def speed_boost(self, player, enemies):
@@ -132,8 +120,8 @@ class PowerUpManager:
 
     def teleportation(self, player, enemies):
         teleport_effect = TeleportationEffect(
-            "assets/sprites/teleporter_hit.png",
-            "assets/sprites/teleporter_01.png",
+            POWERUP_SPRITES["teleportation_start"],
+            POWERUP_SPRITES["teleportation_end"],
             CELL_SIZE
         )
         teleport_effect.start_teleport()

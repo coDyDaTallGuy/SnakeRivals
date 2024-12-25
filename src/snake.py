@@ -1,5 +1,5 @@
 import pygame
-from config import CELL_SIZE
+from config import CELL_SIZE, SHIELD_SPRITES, WIDTH, HEIGHT
 from effects import BloodSplatter
 
 class Snake:
@@ -17,8 +17,8 @@ class Snake:
         self.shield_active = False
         self.shield_timer = 0
         self.shield_sprites = {
-            "active": pygame.image.load("assets/sprites/shieldOn.png").convert_alpha(),
-            "hit": pygame.image.load("assets/sprites/shieldGreen.png").convert_alpha()
+            "active": pygame.image.load(SHIELD_SPRITES["active"]).convert_alpha(),
+            "hit": pygame.image.load(SHIELD_SPRITES["hit"]).convert_alpha()
         }
 
         # Load sprite parts
@@ -26,6 +26,10 @@ class Snake:
         self.body_sprite = self.get_sprite(64, 0)
         self.turn_sprite = self.get_sprite(128, 0)
         self.tail_sprite = self.get_sprite(192, 0)
+
+        # Debugging: Print sprite dimensions
+        print(f"Head sprite size: {self.head_sprites[0].get_size()}")
+        print(f"Body sprite size: {self.body_sprite.get_size()}")
 
     def get_sprite(self, x, y):
         """Extract individual sprites from the sprite sheet."""
@@ -50,6 +54,11 @@ class Snake:
             return
         head_x, head_y = self.body[0]
         new_head = [head_x + self.direction[0] * CELL_SIZE, head_y + self.direction[1] * CELL_SIZE]
+
+        # Constrain the snake within the game window boundaries
+        new_head[0] = max(0, min(new_head[0], WIDTH - CELL_SIZE))
+        new_head[1] = max(0, min(new_head[1], HEIGHT - CELL_SIZE))
+
         self.body.insert(0, new_head)
         if not self.grow:
             self.body.pop()
@@ -62,7 +71,7 @@ class Snake:
 
     def check_collision(self, snakes, obstacles=[]):
         head_x, head_y = self.body[0]
-        if head_x < 0 or head_x >= 800 or head_y < 0 or head_y >= 600:
+        if head_x < 0 or head_x >= WIDTH or head_y < 0 or head_y >= HEIGHT:
             self.alive = False
         for snake in snakes:
             for segment in snake.body:

@@ -1,6 +1,6 @@
 ## File: main.py
 import pygame
-from config import TILESET, WIDTH, HEIGHT, CELL_SIZE, BLACK, FPS, SNAKE_SKINS, FONTS
+from config import TILESET, WIDTH, HEIGHT, CELL_SIZE, BLACK, FPS, SNAKE_SKINS, FONTS, POWERUP_SPRITES
 from snake import Snake
 from tiles import TileMap
 from sounds import Sounds
@@ -10,7 +10,10 @@ from gui import GUI
 from effects import BloodSplatter
 from powerups import TeleportationEffect
 from utils import draw_text
+from settings import Settings
 import os
+
+os.chdir(os.path.dirname(__file__))  # Set the working directory to the current file location
 
 # Initialize pygame
 pygame.init()
@@ -30,12 +33,12 @@ selected_enemy_skin = None
 
 # Blood splatter effects
 blood_splatters = []
-blood_sprite_sheet = "assets/sprites/blood_hit_01.png"  # Example sprite sheet path
+blood_sprite_sheet = POWERUP_SPRITES["teleportation_start"]  # Example sprite sheet path
 
 # Initialize teleportation effect
 teleport_effect = TeleportationEffect(
-    "assets/sprites/teleporter_01.png",
-    "assets/sprites/teleporter_hit.png",
+    POWERUP_SPRITES["teleportation_end"],
+    POWERUP_SPRITES["teleportation_start"],
     CELL_SIZE,
 )
 
@@ -43,15 +46,32 @@ def select_map():
     """Display a map selection menu."""
     menu = GUI()
     map_names = maps.list_maps()
-    selected_map = menu.show_options(map_names, "Select a Map")
+    selected_map = menu.show_options(screen, map_names, "Select a Map")
     return selected_map
 
 def select_snake_skin(title):
     """Display a snake skin selection menu."""
     menu = GUI()
     skin_names = list(SNAKE_SKINS.keys())
-    selected_skin = menu.show_options(skin_names, title)
+    selected_skin = menu.show_options(screen, skin_names, title)
     return SNAKE_SKINS[selected_skin]
+
+def settings_menu():
+    """Settings menu interface."""
+    settings = Settings()
+    while True:
+        screen.fill(BLACK)
+        settings.show_menu(screen)
+        pygame.display.flip()
+        clock.tick(FPS)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return  # Exit settings menu
 
 def main_menu():
     """Main menu interface."""
@@ -64,13 +84,18 @@ def main_menu():
         if action == "Start Game":
             break
         elif action == "Settings":
-            print("Settings menu not implemented yet!")
+            settings_menu()  # Open settings menu
         elif action == "Exit":
             pygame.quit()
             exit()
 
         pygame.display.flip()
         clock.tick(FPS)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
 
 # Create objects
 tile_map = None
@@ -110,7 +135,7 @@ def main():
         player.update_shield()  # Update shield visuals and state
 
         # Check collisions for powerups
-        if powerup_manager.check_collisions(player.body[0]) == "teleportation":
+        if powerup_manager.check_collisions(player.body[0], [enemy]) == "teleportation":
             teleport_effect.start_teleport()
 
         # Handle teleportation animation

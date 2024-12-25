@@ -1,5 +1,7 @@
 ## File: maps.py
 
+from config import WIDTH, HEIGHT, CELL_SIZE
+
 class Maps:
     def __init__(self):
         self.maps = {
@@ -76,7 +78,23 @@ class Maps:
         }
 
     def get_map(self, name):
-        return self.maps.get(name, None)
+        base_map = self.maps.get(name, None)
+        if base_map is None:
+            return None
+
+        # Calculate the number of cells needed to fill the window
+        rows = HEIGHT // CELL_SIZE
+        cols = WIDTH // CELL_SIZE
+
+        # Create a new map with the required size
+        new_map = [[0 for _ in range(cols)] for _ in range(rows)]
+
+        # Fill the new map with the base map pattern
+        for i in range(rows):
+            for j in range(cols):
+                new_map[i][j] = base_map[i % len(base_map)][j % len(base_map[0])]
+
+        return new_map
 
     def list_maps(self):
         return list(self.maps.keys())

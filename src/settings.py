@@ -1,6 +1,12 @@
 ## File: settings.py
 import pygame
-from config import *
+from config import WIDTH, HEIGHT, FPS, WHITE
+
+DEFAULT_WINDOW_SIZE = (WIDTH, HEIGHT)
+DEFAULT_FPS = FPS
+DEFAULT_SNAKE_SPEED = 5
+DEFAULT_SNAKE_COLOR = (0, 255, 0)  # Green
+DEFAULT_ENEMY_COLOR = (255, 0, 0)  # Red
 
 class Settings:
     def __init__(self):
@@ -18,6 +24,7 @@ class Settings:
             f"2. FPS: {self.fps}",
             f"3. Snake Speed: {self.snake_speed}",
             f"4. Player Color: {self.player_color}",
+            f"5. Enemy Color: {self.enemy_color}",
             "Press ESC to return."
         ]
         y = 150
@@ -35,3 +42,5 @@ class Settings:
             self.snake_speed = value
         elif option == 4:
             self.player_color = value
+        elif option == 5:
+            self.enemy_color = value
