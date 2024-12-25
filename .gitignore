@@ -19,8 +19,7 @@ Thumbs.db
 .idea/
 
 # Large binaries (adjust as needed)
-assets/sounds/*.wav
-assets/sprites/*.png
+
 
 # Exclude other temporary or unnecessary files
 *.tmp
